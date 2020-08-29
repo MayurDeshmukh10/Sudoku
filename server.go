@@ -16,9 +16,11 @@ import (
 )
 
 var upgrader = websocket.Upgrader{}
-var DBUSER = env.Getenv("DBUSER")
-var DBPASS = env.Getenv("DBPASS")
-var DBNAME = env.Getenv("DBNAME")
+var (
+	DBUSER string = os.Getenv("DATABASE_USERNAME")
+	DBPASS string = os.Getenv("DATABASE_PASSWORD")
+	DBNAME string = os.Getenv("DATABASE_NAME")
+)
 
 //Struct to hold Player data
 type User struct {
@@ -118,21 +120,17 @@ func newGameHandler(rw http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println("Difficulty Level : ", gameLevel)
 	Game := Sudoku{}
 	Game.initializeGame(9, 3, gameLevel)
 
+	difficultyLevel, _ := strconv.Atoi(Game.gameLevel)
 	conn := getConnection()
-	c.WriteMessage(websocket.TextMessage, []byte(getTopPlayers(conn, Game.gridSize, Game.gameLevel)))
+	c.WriteMessage(websocket.TextMessage, []byte(getTopPlayers(conn, Game.gridSize, difficultyLevel)))
 
 	Game.createPuzzle(gameLevel)
-	fmt.Println("phase 2")
 	Game.answerGrid = replicateOriginalGrid(Game.sudokuGrid)
-	fmt.Println("phase 3")
 	str := Game.generateStream()
-	fmt.Println("phase 4")
 	c.WriteMessage(websocket.TextMessage, []byte(str))
-	fmt.Println("phase 5")
 
 	for {
 		// score := Score{}
@@ -155,8 +153,6 @@ func newGameHandler(rw http.ResponseWriter, req *http.Request) {
 		if Game.answerGrid[row][col] != Game.replicatedGrid[row][col] {
 			c.WriteMessage(websocket.TextMessage, []byte("Violation"))
 		} else {
-			w := Game.checkAnswer()
-			fmt.Println("status : ", w)
 			if Game.checkAnswer() {
 				c.WriteMessage(websocket.TextMessage, []byte("WIN"))
 				userTiming := time.Since(start)
@@ -164,7 +160,8 @@ func newGameHandler(rw http.ResponseWriter, req *http.Request) {
 				//Getting Player Name
 				_, nameData, _ := c.ReadMessage()
 				name := string(nameData)
-				addPlayer(conn, name, userTiming, Game.gameLevel, Game.gridSize)
+
+				addPlayer(conn, name, userTiming, difficultyLevel, Game.gridSize)
 				break
 			}
 		}
