@@ -47,6 +47,13 @@ func (s *Sudoku) setKValue() {
 	}
 }
 
+// Functiom for Validating Uniqueness of Element in Row, Column and Box
+func (s *Sudoku) uniqueValidation(rowNum int, colNum int, candidateValue int) bool {
+	
+	status := (s.uniqueRowValidation(rowNum, candidateValue) && s.uniqueColValidation(colNum, candidateValue) && s.uniqueBoxValidation(rowNum, colNum, candidateValue))
+	return status
+}
+
 // Functiom for Validating Uniqueness of Element in a given Row
 func (s *Sudoku) uniqueRowValidation(rowNum int, candidateValue int) bool {
 
@@ -59,6 +66,17 @@ func (s *Sudoku) uniqueRowValidation(rowNum int, candidateValue int) bool {
 	return true
 }
 
+// Functiom for Validating Uniqueness of Element in a given Column
+func (s *Sudoku) uniqueColValidation(colNum int, candidateValue int) bool {
+	
+	//check column wise 
+	for i := 0; i < s.gridSize; i++ {
+		if s.sudokuGrid[i][colNum] == candidateValue {
+			return false
+    }
+    	return true
+}
+  
 func (s *Sudoku) uniqueBoxValidation(rowNum int, colNum int, candidateValue int) bool {
 
 	// Getting index of first element of that block
@@ -72,8 +90,9 @@ func (s *Sudoku) uniqueBoxValidation(rowNum int, colNum int, candidateValue int)
 			}
 		}
 	}
-	return true
+  return true
 }
+
 
 func main() {
 
