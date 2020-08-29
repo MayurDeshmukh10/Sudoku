@@ -47,10 +47,12 @@ func (s *Sudoku) setKValue() {
 	}
 }
 
-// Functiom for Validating Uniqueness of Element in Row
-func (s *Sudoku) uniqueRowValidation(i int, num int) bool {
+// Functiom for Validating Uniqueness of Element in a given Row
+func (s *Sudoku) uniqueRowValidation(rowNum int, candidateValue int) bool {
+
+	//check row wise 
 	for j := 0; j < s.gridSize; j++ {
-		if s.sudokuGrid[i][j] == num {
+		if s.sudokuGrid[rowNum][j] == candidateValue {
 			return false
 		}
 	}
