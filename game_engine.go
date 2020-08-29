@@ -90,6 +90,29 @@ func (s *Sudoku) uniqueBoxValidation(rowNum int, colNum int, candidateValue int)
 	return true
 }
 
+// Function for Filling Cells in particular box in the Puzzle
+func (s *Sudoku) fillIndividualBox(row, col int) {
+	var num int
+	for i := 0; i < s.blockSize; i++ {
+		for j := 0; j < s.blockSize; j++ {
+			for { // find unique number
+				num = randomValueGenerator(s.gridSize)
+				if s.uniqueValidation(row, col, num) {
+					break
+				}
+			}
+			s.sudokuGrid[row+i][col+j] = num
+		}
+	}
+}
+
+// Function for Filling Cells the Diagonal boxes in the Puzzle
+func (s *Sudoku) fillDiagonalBoxes() {
+	for i := 0; i < s.gridSize; i += s.blockSize {
+		s.fillIndividualBox(i, i)
+	}
+}
+
 // Function for Filling Remaining Cells in the Puzzle i.e Other than Diagonal Boxes
 func (s *Sudoku) fillRemainingCells(i int, j int) bool {
 
