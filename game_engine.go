@@ -80,9 +80,12 @@ func (s *Sudoku) uniqueColValidation(colNum int, candidateValue int) bool {
 
 func (s *Sudoku) uniqueBoxValidation(rowNum int, colNum int, candidateValue int) bool {
 
+	rowStart := rowNum - (rowNum % s.blockSize)
+	colStart := colNum - (colNum % s.blockSize)
+
 	for i := 0; i < s.blockSize; i++ {
 		for j := 0; j < s.blockSize; j++ {
-			if s.sudokuGrid[rowNum+i][colNum+j] == candidateValue {
+			if s.sudokuGrid[rowStart+i][colStart+j] == candidateValue {
 				return false
 			}
 		}
