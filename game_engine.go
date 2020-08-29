@@ -49,7 +49,7 @@ func (s *Sudoku) setKValue() {
 
 // Functiom for Validating Uniqueness of Element in Row, Column and Box
 func (s *Sudoku) uniqueValidation(rowNum int, colNum int, candidateValue int) bool {
-	
+
 	status := (s.uniqueRowValidation(rowNum, candidateValue) && s.uniqueColValidation(colNum, candidateValue) && s.uniqueBoxValidation(rowNum, colNum, candidateValue))
 	return status
 }
@@ -57,7 +57,7 @@ func (s *Sudoku) uniqueValidation(rowNum int, colNum int, candidateValue int) bo
 // Functiom for Validating Uniqueness of Element in a given Row
 func (s *Sudoku) uniqueRowValidation(rowNum int, candidateValue int) bool {
 
-	//check row wise 
+	//check row wise
 	for j := 0; j < s.gridSize; j++ {
 		if s.sudokuGrid[rowNum][j] == candidateValue {
 			return false
@@ -68,31 +68,67 @@ func (s *Sudoku) uniqueRowValidation(rowNum int, candidateValue int) bool {
 
 // Functiom for Validating Uniqueness of Element in a given Column
 func (s *Sudoku) uniqueColValidation(colNum int, candidateValue int) bool {
-	
-	//check column wise 
+
+	//check column wise
 	for i := 0; i < s.gridSize; i++ {
 		if s.sudokuGrid[i][colNum] == candidateValue {
 			return false
-    }
-    	return true
+		}
+	}
+	return true
 }
-  
-func (s *Sudoku) uniqueBoxValidation(rowNum int, colNum int, candidateValue int) bool {
 
-	// Getting index of first element of that block
-	rowStart := (rowNum / s.blockSize) * s.blockSize
-	colStart := (colNum / s.blockSize) * s.blockSize
+func (s *Sudoku) uniqueBoxValidation(rowNum int, colNum int, candidateValue int) bool {
 
 	for i := 0; i < s.blockSize; i++ {
 		for j := 0; j < s.blockSize; j++ {
-			if s.sudokuGrid[rowStart+i][colStart+j] == candidateValue {
+			if s.sudokuGrid[rowNum+i][colNum+j] == candidateValue {
 				return false
 			}
 		}
 	}
-  return true
+	return true
 }
 
+// Function for Filling Remaining Cells in the Puzzle i.e Other than Diagonal Boxes
+func (s *Sudoku) fillRemainingCells(i int, j int) bool {
+
+	if j >= s.gridSize && i < (s.gridSize-1) {
+		i = i + 1
+		j = 0
+	}
+	if i >= s.gridSize && j >= s.gridSize {
+		return true
+	}
+	if i < s.blockSize {
+		if j < s.blockSize {
+			j = s.blockSize
+		}
+	} else if i < (s.gridSize - s.blockSize) {
+		if j == int(i/s.blockSize)*s.blockSize {
+			j = j + s.blockSize
+		}
+	} else {
+		if j == (s.gridSize - s.blockSize) {
+			i = i + 1
+			j = 0
+			if i >= s.gridSize {
+				return true
+			}
+		}
+	}
+
+	for num := 1; num <= s.gridSize; num++ {
+		if s.uniqueValidation(i, j, num) {
+			s.sudokuGrid[i][j] = num
+			if s.fillRemainingCells(i, j+1) {
+				return true
+			}
+			s.sudokuGrid[i][j] = 0
+		}
+	}
+	return false
+}
 
 func main() {
 
