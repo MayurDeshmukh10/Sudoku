@@ -2,6 +2,7 @@ package main
 
 import (
 	"math/rand"
+	"strconv"
 	"time"
 )
 
@@ -44,6 +45,16 @@ func (s *Sudoku) setKValue() {
 		key = strconv.Itoa(i)
 		s.difficultyLevel[key] = int(s.gridSize * 2 * (i + 1))
 	}
+}
+
+// Functiom for Validating Uniqueness of Element in Row
+func (s *Sudoku) uniqueRowValidation(i int, num int) bool {
+	for j := 0; j < s.gridSize; j++ {
+		if s.sudokuGrid[i][j] == num {
+			return false
+		}
+	}
+	return true
 }
 
 func main() {
