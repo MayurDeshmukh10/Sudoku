@@ -57,6 +57,22 @@ func (s *Sudoku) uniqueRowValidation(i int, num int) bool {
 	return true
 }
 
+func (s *Sudoku) uniqueBoxValidation(rowNum int, colNum int, candidateValue int) bool {
+
+	// Getting index of first element of that block
+	rowStart := (rowNum / s.blockSize) * s.blockSize
+	colStart := (colNum / s.blockSize) * s.blockSize
+
+	for i := 0; i < s.blockSize; i++ {
+		for j := 0; j < s.blockSize; j++ {
+			if s.sudokuGrid[rowStart+i][colStart+j] == candidateValue {
+				return false
+			}
+		}
+	}
+	return true
+}
+
 func main() {
 
 }
