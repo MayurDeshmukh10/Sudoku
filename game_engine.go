@@ -10,6 +10,13 @@ type Sudoku struct {
 	gameLevel       string         //Game Level Chosen by Player
 }
 
+//Set Puzzle Settings from User
+func (s *Sudoku) initializeGame(puzzleSize int, subBoxSize int, level string) {
+	s.gridSize = puzzleSize
+	s.blockSize = subBoxSize
+	s.gameLevel = level
+}
+
 func main() {
 
 }
