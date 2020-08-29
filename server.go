@@ -34,7 +34,7 @@ func getConnection() (conn *sql.DB){
 
 //function to get top players to display on leaderboard 
 func getPlayers(conn *sql.DB, grid_size int, difficulty int) (users []User){
-	query := "SELECT Name, Time FROM Leaderboard WHERE Sudoku_size = ? AND Difficulty = ?"
+	query := "SELECT Name, Time FROM Leaderboard WHERE Sudoku_size = ? AND Difficulty = ? ORDER BY Time LIMIT 5"
 	result, err := conn.Query(query, grid_size, difficulty)
 	
 	if err != nil{
