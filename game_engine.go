@@ -153,6 +153,25 @@ func (s *Sudoku) fillRemainingCells(i int, j int) bool {
 	return false
 }
 
+//Function for removing K-values from grid based on difficulty Level
+func (s *Sudoku) removeKCells(gameLevel string) {
+	var count int = s.difficultyLevel[gameLevel]
+	for {
+		var cellID = randomValueGenerator(s.gridSize*s.gridSize - 1)
+
+		i := (cellID / s.gridSize)
+		j := (cellID % s.gridSize)
+
+		if s.sudokuGrid[i][j] != 0 {
+			count = count - 1
+			s.sudokuGrid[i][j] = 0
+		}
+		if count == 0 {
+			break
+		}
+	}
+}
+
 func main() {
 
 }
