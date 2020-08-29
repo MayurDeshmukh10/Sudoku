@@ -172,6 +172,16 @@ func (s *Sudoku) removeKCells(gameLevel string) {
 	}
 }
 
+// Function for Generating Puzzle
+func (s *Sudoku) createPuzzle(gameLevel string) {
+
+	s.fillDiagonalBoxes()                                  //Fill the diagonal boxes
+	s.fillRemainingCells(0, s.blockSize-1)                 //Fill remaining boxes except diagonal boxes
+	s.replicatedGrid = replicateOriginalGrid(s.sudokuGrid) //Copy Unaltered Grid in New Grid
+	s.setKValue()                                          //Set K values in map
+	s.removeKCells(gameLevel)                              //Remove Cells form Grid Based on Difficulty of Game
+}
+
 func main() {
 
 }
