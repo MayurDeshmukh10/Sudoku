@@ -31,6 +31,16 @@ func (s *Sudoku) initializeGame(puzzleSize int, subBoxSize int, level string) {
 	s.gameLevel = level
 }
 
+// Constant Values for Setting Levels
+func (s *Sudoku) setKValue() {
+	s.difficultyLevel = make(map[string]int)
+	var key string
+	for i := 0; i < 3; i++ {
+		key = strconv.Itoa(i)
+		s.difficultyLevel[key] = int(s.gridSize * 2 * (i + 1))
+	}
+}
+
 func main() {
 
 }
