@@ -31,6 +31,11 @@ func (s *Sudoku) initializeGame(puzzleSize int, subBoxSize int, level string) {
 	s.gameLevel = level
 }
 
+// Function to replicate a original grid
+func replicateOriginalGrid(sudokugrid [9][9]int) [9][9]int {
+	return sudokugrid
+}
+
 // Constant Values for Setting Levels
 func (s *Sudoku) setKValue() {
 	s.difficultyLevel = make(map[string]int)
