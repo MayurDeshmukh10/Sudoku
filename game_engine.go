@@ -22,6 +22,12 @@ func randomValueGenerator(upperLimit int) (randomInt int) {
 	var rangeMax int = upperLimit + 1
 	randomInt = rand.Intn(rangeMax-rangeMin) + rangeMin
 	return
+
+//Set Puzzle Settings from User
+func (s *Sudoku) initializeGame(puzzleSize int, subBoxSize int, level string) {
+	s.gridSize = puzzleSize
+	s.blockSize = subBoxSize
+	s.gameLevel = level
 }
 
 func main() {
