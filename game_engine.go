@@ -1,5 +1,10 @@
 package main
 
+import (
+	"math/rand"
+	"time"
+)
+
 type Sudoku struct {
 	sudokuGrid      [9][9]int      //Array for Storing Values in cells
 	replicatedGrid  [9][9]int      //Replica of Original Grid Before removing values
@@ -8,6 +13,15 @@ type Sudoku struct {
 	gridSize        int            //Size of Puzzle
 	blockSize       int            //Size of a block
 	gameLevel       string         //Game Level Chosen by Player
+}
+
+// Function for generating random value
+func randomValueGenerator(upperLimit int) (randomInt int) {
+	rand.Seed(time.Now().UnixNano())
+	var rangeMin int = 1
+	var rangeMax int = upperLimit + 1
+	randomInt = rand.Intn(rangeMax-rangeMin) + rangeMin
+	return
 }
 
 func main() {
