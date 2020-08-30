@@ -39,7 +39,7 @@ html,
             /* width: 500px; */
             position: relative;
             display: inline-block;
-            left:400px;
+            left:29.28%;
             align-self: auto;
             margin-top: 40px;
 
@@ -51,7 +51,7 @@ html,
             color: #209cee;
             position: relative;
             display: inline-block;
-            left:550px;
+            left:110.26%;
             bottom:450px;
         }
         #resetButton {
@@ -82,7 +82,7 @@ html,
         }
         #stopwatch {
             position: relative;
-            width : 200px;
+            width : 14.64%;
             left:78%;           
         }
 
