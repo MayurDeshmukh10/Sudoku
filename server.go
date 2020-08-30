@@ -68,12 +68,11 @@ func getTopPlayers(conn *sql.DB, grid_size int, difficulty int) string {
 
 //function to add player record in database
 func addPlayer(conn *sql.DB, name string, duration time.Duration, difficulty int, grid_size int) (err error){
-	//converting duration into HH:MM:SS format
 	tx, err := conn.Begin()
 	if err != nil{
 		return
 	}
-
+	//converting duration into HH:MM:SS format
 	hours := int(duration.Hours())
 	minutes := int(duration.Minutes()) - hours*60
 	seconds := int(duration.Seconds()) - hours*60*60 - minutes*60
