@@ -64,6 +64,7 @@ function loadGame(level) {
 					row_now = i / 9;
 				}
 
+
 				var td = document.createElement("td");
 				// td.innerHTML = message[i]
 				if (message[i] == "0") {
@@ -125,7 +126,10 @@ function resetGame() {
 }
 
 async function sendMessage(id) {
-	var value = document.getElementById("cell-" + id).value;
+    var value = document.getElementById("cell-" + id).value;
+    if(isNaN(value) && value!=""){
+        document.getElementById("cell-" + id).style.background = "red";
+    }
 
 	// if (!isNaN(value) && value != "" && value >= "1" && value <= "9") {
 	// 	document.getElementById("cell-" + id).style.background = "red";
@@ -173,6 +177,6 @@ async function sendMessage(id) {
 			}
 		};
 	} else {
-		document.getElementById("cell-" + id).style.background = "white";
+		document.getElementById("cell-" + id).style.background = "red";
 	}
 }
