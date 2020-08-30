@@ -101,6 +101,7 @@ func TestShouldFetchRecord(t *testing.T) {
 	if err != nil{
 		t.Errorf("Expectations were not met %s",err)
 	}
+}
 
 func TestHomeHandler(t *testing.T) {
 	req, err := http.NewRequest("GET", "localhost:3000", nil)
