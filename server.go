@@ -171,7 +171,7 @@ func newGameHandler(rw http.ResponseWriter, req *http.Request) {
 func InitRouter() (router *mux.Router) {
 
 	router = mux.NewRouter()
-	// router.PathPrefix("/static").Handler(http.StripPrefix("/static", http.FileServer(http.Dir("./assets/"))))
+	router.PathPrefix("/static").Handler(http.StripPrefix("/static", http.FileServer(http.Dir("./assets/"))))
 	router.HandleFunc("/", homeHandler).Methods(http.MethodGet)
 	router.HandleFunc("/ws", newGameHandler).Methods(http.MethodGet)
 
