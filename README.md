@@ -13,7 +13,7 @@ go get github.com/stretchr/testify/assert
 
 ### Import MySQL Database
 
-Set up: create the database in you local database
+Set up: Create the database in your local database.
 
 ```
 CREATE DATABASE sudoku;
@@ -32,8 +32,8 @@ export DATABASE_NAME="Your database name"
 ### To run
 
 ```
-go build *.go
-./server
+go build
+./Sudoku
 
 Go to - localhost:3000
 ```
