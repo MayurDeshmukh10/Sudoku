@@ -21,7 +21,7 @@
 
 
 
-  <div class="container">
+  <div id="header-container">
 
     <span id='welcomeMsg' class="nes-text is-primary">Welcome to Sudoku !</span><br>
     <button id='resetButton' type="button" class="nes-btn is-primary" onclick="resetGame()">New Game</button>
@@ -42,13 +42,13 @@
     <p id="countdown2"></p>
   </div>
 
-  <div id='userGrid'>
-    <table id="grid"></table>
-    <div id='score'>
-      <p style="font-size: 25px;">Leader Board</p>
-      <ol id="scoreBoard"></ol>
+    <div id='userGrid'>
+      <table id="grid"></table>
+      <div id='score'>
+        <p style="font-size: 25px;">Leader Board</p>
+        <ol id="scoreBoard"></ol>
+      </div>
     </div>
-  </div>
 
   <div id='rules-container' class="nes-container is-rounded with-title is-centered">
     <p class="title" id='rules'>How to play Sudoku</p>

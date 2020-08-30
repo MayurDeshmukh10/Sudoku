@@ -28,7 +28,10 @@ async function loadGame(level) {
         var message = server_data.data
         
         console.log("Message : "+message)
-        if( message.length > 81) {
+        if(message == "null") {
+            console.log("in null")
+            var li = document.createElement("li")
+        }else if( message.length > 81 || message.length < 81 || message[0] == "[") {
             var obj = JSON.parse(message)
             for (var i = 0; i < obj.length; i++) {
                 var score = obj[i];
@@ -37,12 +40,6 @@ async function loadGame(level) {
                 ol.appendChild(li)
             }
         } else {
-            if(message == null) {
-                console.log("in null")
-                var li = document.createElement("li")
-                li.innerHTML = "No Data Present"
-                ol.appendChild(li)
-            }
             var tr;
             var tbl = document.getElementById("grid")
             var row_now;
@@ -124,9 +121,9 @@ async function sendMessage(id) {
         }
         conn.send(JSON.stringify(userData))
         conn.onmessage = function (server_data) {
-        if(server_data.data == 'violation'){
+        if(server_data.data == 'Violation'){
             document.getElementById("cell-"+id).style.background = 'red'
-        } else if(server_data.data == 'win') {
+        } else if(server_data.data == 'Win') {
             (async() => {
                 const {value: name} = await Swal.fire({
                     title: 'You Won !',

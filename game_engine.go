@@ -184,7 +184,3 @@ func (s *Sudoku) createPuzzle(gameLevel string) {
 	s.setKValue()                                          //Set K values in map
 	s.removeKCells(gameLevel)                              //Remove Cells form Grid Based on Difficulty of Game
 }
-
-func main() {
-
-}
