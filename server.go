@@ -4,15 +4,16 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/gorilla/mux"
-	"github.com/gorilla/websocket"
-	"github.com/urfave/negroni"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/gorilla/mux"
+	"github.com/gorilla/websocket"
+	"github.com/urfave/negroni"
 )
 
 var upgrader = websocket.Upgrader{}
@@ -151,10 +152,11 @@ func newGameHandler(rw http.ResponseWriter, req *http.Request) {
 		Game.answerGrid[row][col] = value
 
 		if Game.answerGrid[row][col] != Game.replicatedGrid[row][col] {
+			fmt.Println("In violation")
 			c.WriteMessage(websocket.TextMessage, []byte("Violation"))
 		} else {
 			if Game.checkAnswer() {
-				c.WriteMessage(websocket.TextMessage, []byte("WIN"))
+				c.WriteMessage(websocket.TextMessage, []byte("Win"))
 				userTiming := time.Since(start)
 
 				//Getting Player Name
@@ -171,7 +173,7 @@ func newGameHandler(rw http.ResponseWriter, req *http.Request) {
 func InitRouter() (router *mux.Router) {
 
 	router = mux.NewRouter()
-	// router.PathPrefix("/static").Handler(http.StripPrefix("/static", http.FileServer(http.Dir("./assets/"))))
+	router.PathPrefix("/static").Handler(http.StripPrefix("/static", http.FileServer(http.Dir("./assets/"))))
 	router.HandleFunc("/", homeHandler).Methods(http.MethodGet)
 	router.HandleFunc("/ws", newGameHandler).Methods(http.MethodGet)
 
