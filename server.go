@@ -67,19 +67,27 @@ func getTopPlayers(conn *sql.DB, grid_size int, difficulty int) string {
 }
 
 //function to add player record in database
-func addPlayer(conn *sql.DB, name string, duration time.Duration, difficulty int, grid_size int) {
+func addPlayer(conn *sql.DB, name string, duration time.Duration, difficulty int, grid_size int) (err error){
 	//converting duration into HH:MM:SS format
+	tx, err := conn.Begin()
+	if err != nil{
+		return
+	}
+
 	hours := int(duration.Hours())
 	minutes := int(duration.Minutes()) - hours*60
 	seconds := int(duration.Seconds()) - hours*60*60 - minutes*60
 	time := strconv.Itoa(hours) + ":" + strconv.Itoa(minutes) + ":" + strconv.Itoa(seconds)
 
 	query := "INSERT INTO Leaderboard (Name, Time, Difficulty, Sudoku_size) VALUES (?, ?, ?, ?)"
-	result, err := conn.Query(query, name, time, difficulty, grid_size)
+	_, err = tx.Exec(query, name, time, difficulty, grid_size)
+
 	if err != nil {
-		panic(err)
+		tx.Rollback()
+		return err
 	}
-	defer result.Close()
+	err = tx.Commit()
+	return err
 }
 
 //Generate Stream for Sending Over Web Socket
@@ -163,7 +171,10 @@ func newGameHandler(rw http.ResponseWriter, req *http.Request) {
 				_, nameData, _ := c.ReadMessage()
 				name := string(nameData)
 
-				addPlayer(conn, name, userTiming, difficultyLevel, Game.gridSize)
+				err := addPlayer(conn, name, userTiming, difficultyLevel, Game.gridSize)
+				if err != nil{
+					panic(err)
+				}
 				break
 			}
 		}
