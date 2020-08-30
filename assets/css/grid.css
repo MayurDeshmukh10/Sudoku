@@ -2,8 +2,8 @@ html,
         body {
             background-color: #FAFAFA;
             background-color: #cccccc;
-            width: 70%;
-            height: 100%;
+            width: auto;
+            height: auto;
             background-attachment: fixed;
             /* height: auto; */
             /* width: auto; */
@@ -22,9 +22,9 @@ html,
 
         #grid {
            
-        position: relative;
-        left:150%; 
-              
+        
+        
+        
          }
         
         
@@ -37,11 +37,12 @@ html,
         }
         #userGrid {
             /* width: 500px; */
-            
+            position: relative;
             display: inline-block;
-            
+            left:29.28%;
             align-self: auto;
-            margin-top: 100px;
+            margin-top: 40px;
+
         }
 
         #score {
@@ -50,8 +51,8 @@ html,
             color: #209cee;
             position: relative;
             display: inline-block;
-            left:290%;
-            bottom:400px;
+            left:110.26%;
+            bottom:450px;
         }
         #resetButton {
             float: right;
@@ -62,7 +63,7 @@ html,
 
         #welcomeMsg {
             font-size: 30px;
-            margin-top: 100px;
+            margin-top: 5px;
             margin-left: 400px;
             
             font-family: "Press Start 2P";
@@ -73,14 +74,16 @@ html,
             background-color: #209cee;
             padding: 1rem 1.2rem 1rem 1rem;
             /* width:calc(100% + 8px) */
+            margin-left: 10px;
             width: 300px;
             height: fit-content;
             font-family: "Press Start 2P";
             margin-top: 50px;
         }
-        #countdown2 {
-            left:73%;
-            margin-left: 600px;
+        #stopwatch {
+            position: relative;
+            width : 14.64%;
+            left:78%;           
         }
 
         #rules {
@@ -89,15 +92,15 @@ html,
 
         #rules-container {
             margin-top: 80px;
-            margin-bottom: 50px;
-            margin-left: 300px;
+            /* margin-bottom: 50px; */
+            margin-left: 55px;
             width: 1200px;
         }
 
         #header-container {
             margin-top: 50px;
             margin-bottom: 10px;
-            margin-left: 250px;
+            /* margin-left: 250px; */
             width: 1200px;
         }
         input::-webkit-outer-spin-button,
