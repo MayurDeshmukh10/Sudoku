@@ -100,7 +100,7 @@ func (s *Sudoku) fillIndividualBox(row, col int) {
 		for j := 0; j < s.blockSize; j++ {
 			for { // find unique number
 				num = randomValueGenerator(s.gridSize)
-				if s.uniqueValidation(row, col, num) {
+				if s.uniqueBoxValidation(row, col, num) {
 					break
 				}
 			}
