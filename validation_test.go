@@ -2,7 +2,6 @@ package main
 
 import (
 	"testing"
-	"fmt"
 )
 
 func TestUniqueRowValidationInvalid(t *testing.T) {
@@ -263,21 +262,12 @@ Loop:
 	}
 	
 	// Validate
-	value := s.uniqueValidation(rowStart, colStart, candidateValue)
+	value := s.uniqueValidation(rowNum, colNum, candidateValue)
 	if value == true {
 		t.Errorf("Duplicate existed, should return false")
 	}
 	
 	// for explantion of this see TestUniqueColValidationInvalid, TestUniqueRowValidationInvalid and TestUniqueBoxValidationInvalid functions 
 		
-}
-
-func createSudoku() (*Sudoku) {
-	s := Sudoku{}
-	// gameLevel is zero for now
-	s.initializeGame(9, 3, "0")
-	s.createPuzzle("0")
-	
-	return &s
 }
 
