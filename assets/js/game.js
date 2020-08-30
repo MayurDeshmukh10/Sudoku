@@ -25,13 +25,14 @@ function changeDifficultyLevel() {
 //     }, 1500);
 
 // }
-async function loadGame(level) {
+function loadGame(level) {
 	conn = new WebSocket("ws://" + document.location.host + "/ws");
 	conn.close = function () {
 		console.log("Connection with Server closed");
 	};
-	await new Promise((r) => setTimeout(r, 500));
+	//await new Promise((r) => setTimeout(r, 500));
 	conn.onopen = () => conn.send(level);
+	//conn.send(level);
 	conn.onmessage = function (server_data) {
 		var ol = document.getElementById("scoreBoard");
 		var message = server_data.data;
@@ -130,6 +131,9 @@ async function sendMessage(id) {
         document.getElementById("cell-" + id).style.background = "red";
     }
 
+	// if (!isNaN(value) && value != "" && value >= "1" && value <= "9") {
+	// 	document.getElementById("cell-" + id).style.background = "red";
+	// }
 	document.getElementById("cell-" + id).style.background = "white";
 
 	if (parseInt(value) >= 1 && parseInt(value) <= 9) {
