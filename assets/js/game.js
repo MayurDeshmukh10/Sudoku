@@ -16,6 +16,15 @@ function changeDifficultyLevel(){
     loadGame(level)
 }
 
+// function highlightCell(id){
+//     var element = document.getElementById(id)
+//     element.style.backgroundColor = "red"
+//     setTimeout(function() {
+//         element.style.backgroundColor = "white"
+//         // element.css("background-color", "red");
+//     }, 1500);
+    
+// }
 async function loadGame(level) {
     conn = new WebSocket("ws://" + document.location.host + "/ws");
     conn.close = function () {
@@ -27,7 +36,7 @@ async function loadGame(level) {
         var ol = document.getElementById("scoreBoard")
         var message = server_data.data
         
-        console.log("Message : "+message)
+        // console.log("Message : "+message)
         if(message == "null") {
             console.log("in null")
             var li = document.createElement("li")
@@ -108,7 +117,6 @@ async function sendMessage(id) {
             
     document.getElementById("cell-"+id).style.background = 'white'
             
-    console.log("You have selected : ", value)
             
     if(parseInt(value) >= 1 && parseInt(value) <= 9) {    
         row = parseInt(id)/9
@@ -151,7 +159,7 @@ async function sendMessage(id) {
                     
     }
     }else {
-        document.getElementById("cell-"+id).style.background = 'red'
+        document.getElementById("cell-"+id).style.background = 'white'
     }
             
 }
