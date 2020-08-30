@@ -177,6 +177,6 @@ async function sendMessage(id) {
 			}
 		};
 	} else {
-		document.getElementById("cell-" + id).style.background = "white";
+		document.getElementById("cell-" + id).style.background = "red";
 	}
 }
